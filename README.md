@@ -1,0 +1,2 @@
+# kyuaikz
+Stats skript
