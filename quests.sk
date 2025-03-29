@@ -1,0 +1,205 @@
+#Made by yt1wole
+options:
+    delay: 2 seconds
+
+command /questreward [<integer>]
+    permission: op
+    permission message: "&c(!) You do not have permission to do this command"
+    trigger:
+        if arg-1 is 1:
+            set {_questreward1} to player's tool
+            set {_questrewardname1} to name of player's tool
+            send "&a(!) You added the first item to the quest reward" to player
+         if arg-1 is 2:
+            set {_questreward2} to player's tool
+            set {_questrewardname2} to name of player's tool
+            send "&a(!) You added the second item to the quest reward" to player
+        if arg-1 is 3:
+            set {_questreward3} to player's tool
+            set {_questrewardname3} to name of player's tool
+            send "&a(!) You added the third item to the quest reward" to player
+        if arg-1 is 4:
+            set {_questreward4} to player's tool
+            set {_questrewardname4} to name of player's tool
+            send "&a(!) You added the ford item to the quest reward" to player
+        if arg-1 is 5:
+            set {_questreward5} to player's tool
+            set {_questrewardname5} to name of player's tool
+            send "&a(!) You added the fifte item to the quest reward" to player
+
+
+on right click on entity:
+    if name of entity is "&8Miner":
+        # Ensure player click tracking is initialized
+        if {npcclick::%player's uuid%} is not set:
+            set {npcclick::%player's uuid%} to false
+
+        # Handle NPC click lock
+        if {npcclick::%player's uuid%} is true:
+            stop
+        set {npcclick::%player's uuid%} to true
+
+        # Check quest stages
+        if {npc1::%player's uuid%} ? 0 = 0:
+            send "&8Miner &7| &fHello %player%! I am a miner and I have a quest for you!" to player
+            play sound "block.note_block.bit" at volume 1 and pitch 1 to player
+            wait {@delay} seconds
+            send "&8Miner &7| &fComplete this quest and I will reward you." to player
+            play sound "block.note_block.bit" at volume 1 and pitch 1 to player
+            wait {@delay} seconds
+            send "&8Miner &7| &fFor my first quest, I need you to mine 100 diamonds! Good luck." to player
+            play sound "block.note_block.bit" at volume 1 and pitch 1 to player
+            wait {@delay} seconds
+            send "&a&lQuest Received &7| &fMine 100 diamonds for the miner." to player
+            play sound "block.note_block.bit" at volume 1 and pitch 2 to player
+            set {npc1::%player's uuid%} to 1
+
+        else if {npc1::%player's uuid%} ? 0 = 1:
+            if {npc1quest1::%player's uuid%} = 100:
+                send "&8Miner &7| &fGood job, fellow miner! Here is your reward: {_questrewardname1}!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 1 to player
+                remove 100 diamonds from player's inventory
+                give player {_questreward1}
+                wait {@delay} seconds
+                send "&8Miner &7| &fNow for my next quest," to player
+                play sound "block.note_block.bit" at volume 1 and pitch 1 to player
+                wait {@delay} seconds
+                send "&8Miner &7| &fYou need to mine 150 emeralds!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 2 to player
+                set {npc1::%player's uuid%} to 2
+            else:
+                send "&8Miner &7| Return to me when you've mined 150 emeralds!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 1 to player
+
+        else if {npc1::%player's uuid%} ? 0 = 2:
+            if {npc1quest2::%player's uuid%} = 150:
+                send "&8Miner &7| &fGreat job! Here is your reward: {_questrewardname2}!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 1 to player
+                remove 150 emeralds from player's inventory
+                give player {_questreward2}
+                wait {@delay} seconds
+                send "&8Miner &7| &fNext, I need you to mine 150 emeralds!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 2 to player
+                set {npc1::%player's uuid%} to 3
+            else:
+                send "&8Miner &7| Return to me when you've mined 150 emeralds!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 1 to player
+
+        else if {npc1::%player's uuid%} ? 0 = 3:
+            if {npc1quest3::%player's uuid%} = 120:
+                send "&8Miner &7| &fGreat job! Here is your reward: {_questrewardname3}!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 1 to player
+                remove 120 netherites from player's inventory
+                give player {_questreward3}
+                wait {@delay} seconds
+                send "&8Miner &7| &fThere is no any quests for now!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 2 to player
+                set {npc1::%player's uuid%} to 4
+            else:
+                send "&8Miner &7| Return to me when you've mined 120 netherites!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 1 to player
+
+        # Unlock click
+        wait 1 tick
+        set {npcclick::%player's uuid%} to false
+
+
+command /quests:
+    tirgger:
+        send "&7- &aQuests &7-"
+        if {npc1::%player's uuid%} = 1:
+            send "&8Miner &7| &fMine 100 diamonds &a%({npcquest1::%player's uuid%} is 0%/100" to player
+        if {npc2::%player's uuid%} = 2:
+            send "&8Miner &7| &fMine 150 emeralds &a(%{npcquest2::%player's uuid%} is 0%/150)"  to player
+        if {npc3::%player's uuid%} = 3:
+            send "&8Miner &7| &fMine 120 netherite &a(%{npcquest3::%player's uuid%} is 0%/120)"  to player
+
+#diamond
+on block break:
+    if event-block is diamond ore:
+        if player is in region "quest_mine":
+            if {npcquest1::%player's uuid%} ? 0 < 100:
+                add 1 to {npcquest1::%player's uuid%}
+            else:
+                stop 
+            if {npc1quest1::%player's uuid%} ? 0 = 100
+            send "&a&lQuest Finished &7| &fReturn to the miner!" to player
+            play sound "block.note_block.bit" at volume 1 and pitch 2 to player
+        if event-block is diamond ore:
+            if {npc1quest1::%player's uuid%} ? 0 < 100:
+                add 1 to {npc1quest2%player's uuid%}
+            else:
+                if {npc1quest1::%player's tool%} > 100:
+                    set {npc1quest1::%player's uuid%} to 100
+                stop
+            if {npc1quest1::%player's uuid%} ? 0 = 100:
+                send "&a&lQuest Finished &7| &fReturn to the miner!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 2 to player
+
+on block break:
+    if event-block is diamond ore:
+        if player is in region "quest_mine":
+            set {_loc1} to location of event-block
+            set event-block to bedrock
+            wait 10 seconds
+            set block at {_loc1} to diamond ore
+
+#emerald
+on block break:
+    if event-block is emerald ore:
+        if player is in region "quest_mine":
+            if {npcquest2::%player's uuid%} ? 0 < 150:
+                add 1 to {npcquest2::%player's uuid%}
+            else:
+                stop 
+            if {npc1quest2::%player's uuid%} ? 0 = 150
+            send "&a&lQuest Finished &7| &fReturn to the miner!" to player
+            play sound "block.note_block.bit" at volume 1 and pitch 2 to player
+        if event-block is emerlad ore:
+            if {npc1quest2::%player's uuid%} ? 0 < 150:
+                add 1 to {npc1quest2%player's uuid%}
+            else:
+                f {npc1quest2::%player's tool%} > 150:
+                    set {npc1quest2::%player's uuid%} to 150
+                stop
+            if {npc1quest2::%player's uuid%} ? 0 = 150:
+                send "&a&lQuest Finished &7| &fReturn to the miner!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 2 to player
+
+on block break:
+    if event-block is emerlad ore:
+        if player is in region "quest_mine":
+            set {_loc2} to location of event-block
+            set event-block to bedrock
+            wait 10 seconds
+            set block at {_loc2} to emerald ore
+
+#netherite
+on block break:
+    if event-block is netherite:
+        if player is in region "quest_mine":
+            if {npcquest3::%player's uuid%} ? 0 < 120:
+                add 1 to {npcquest3::%player's uuid%}
+            else:
+                stop 
+            if {npc1quest3::%player's uuid%} ? 0 = 120
+            send "&a&lQuest Finished &7| &fReturn to the miner!" to player
+            play sound "block.note_block.bit" at volume 1 and pitch 2 to player
+        if event-block is netherite:
+            if {npc1quest3::%player's uuid%} ? 0 < 120:
+                add 1 to {npc1quest2%player's uuid%}
+            else:
+                if {npc1quest3::%player's tool%} > 120:
+                    set {npc1quest3::%player's uuid%} to 120
+                stop
+            if {npc1quest3::%player's uuid%} ? 0 = 120:
+                send "&a&lQuest Finished &7| &fReturn to the miner!" to player
+                play sound "block.note_block.bit" at volume 1 and pitch 2 to player
+
+on block break:
+    if event-block is netherite:
+        if player is in region "quest_mine":
+            set {_loc3} to location of event-block
+            set event-block to bedrock
+            wait 5 seconds
+            set block at {_loc3} to netherite

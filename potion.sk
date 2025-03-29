@@ -1,0 +1,9 @@
+command /potion:
+    permission: potion.use
+    permission message: &cYou don't have permission to use this command!
+    cooldown: 15 minutes
+    cooldown message: "&aWait until the cooldown resets!"
+    trigger:
+        apply potion of strength 1 to player for 2 minutes
+        apply potion of fire resistance 1 to player for 2 minutes
+        send "&aYou have been given Strength and Fire Resistance for 2 minutes!" to player

@@ -1,0 +1,43 @@
+command /frozenscythe:
+    trigger:
+        give iron hoe named "&9Frozen Scythe" with lore "&6Ability: Ice Cone &e&LRIGHT CLICK" and nbt "{Unbreakable:1b,HideFlags:63}" to player
+
+on right click:
+    if lore of player's tool contains "&6Ability: Ice Cone &e&LRIGHT CLICK":
+        if {cooldown::%player's uuid%} is set:
+            send "&cYou can not use this command right now, do it when the cooldown finishes!"
+            stop
+        set {_distance} to 0.1
+        set {cooldown::%player's uuid%} to now + 3 minutes
+        send "&9You used the Frozen Scythe!"
+        
+        # Spawn the Ice Cone Entity
+        spawn armor stand {_distance} in front of player
+        set {_a} to last spawned armor stand
+        set {_a}'s nbt to "{Invisible:1b,Marker:1b}"
+        set {_a}'s tool to blue ice
+        set {_a}'s name to "&c| Ice Cone Entity |"
+        
+        # Move the Ice Cone Entity
+        while {_a} is alive:
+            wait 1 tick
+            teleport {_a} 1 block in front of {_a}
+            
+            # Damage and slow entities in range
+            loop all entities in radius 2 around {_a}:
+                if loop-entity is a player and loop-entity is not the shooter:
+                    damage loop-entity by 1
+                    apply potion of slowness 2 to loop-entity for 5 seconds
+            
+            # Stop if the Ice Cone hits a block
+            loop all blocks in radius 0.5 around {_a}:
+                if loop-block is not air:
+                    kill {_a}
+                    stop
+
+every 1 second:
+    loop all players:
+        if {cooldown::%loop-player's uuid%} is set:
+            if {cooldown::%loop-player's uuid%} <= now:
+                delete {cooldown::%loop-player's uuid%}
+                send "&aYour Frozen Scythe cooldown is over!" to loop-player

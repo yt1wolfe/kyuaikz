@@ -1,0 +1,517 @@
+#Made by @yt1wolfe
+
+
+
+#Afk System
+on right click:
+    if tool's name is "tool_afk":
+        if block is not set:
+            stop
+        set {bsbsx_afk} to clicked block's x-coord
+        set {bsbsy_afk} to clicked block's y-coord
+        set {bsbsz_afk} to clicked block's z-coord
+        broadcast "&22: &fx:&6%clicked block's x-coord%,&fy:&6%clicked block's y-coord%,&fz:&6%clicked block's z-coord%" 
+
+
+on left click:
+    if tool's name is "tool_afk":
+        if block is not set:
+            stop 
+        set {bsbs2x_afk} to clicked block's x-coord
+        set {bsbs2y_afk} to clicked block's y-coord
+        set {bsbs2z_afk} to clicked block's z-coord
+        broadcast "&11: &fx:&6%clicked block's x-coord%,&fy:&6%clicked block's y-coord%,&fz:&6%clicked block's z-coord%"
+        cancel event
+        
+
+command /select_afk_room:
+    permission: op
+    permission message: "You must be an op to change player's permissions."
+    trigger:
+        if {bsbsx_afk},{bsbsy_afk},{bsbsz_afk},{bsbs2x_afk},{bsbs2y_afk},{bsbs2z_afk} is not set:
+            send "please set blocks"
+        else:
+            set {roomx_afk} to {bsbsx_afk}
+            set {roomy_afk} to {bsbsy_afk}
+            set {roomz_afk} to {bsbsz_afk}
+            set {door2x_afk} to {bsbs2x_afk}
+            set {door2y_afk} to {bsbs2y_afk}
+            set {door2z_afk} to {bsbs2z_afk}
+            send "done selected"
+
+
+every 1 seconds:
+    if {roomx_afk},{roomy_afk},{roomz_afk},{door2x_afk},{door2y_afk},{door2z_afk} is not set:
+        stop
+    loop all players:
+        if loop-players is within location({roomx_afk},{roomy_afk},{roomz_afk}) and location({door2x_afk},{door2y_afk},{door2z_afk}):
+            if {afkstats-%loop-players%} is not set:
+                if {%loop-players%_afkcooldown} is not set:
+                    set {afkstats-%loop-players%} to "on"
+                    set {%loop-players%_afkcooldown} to 300
+                if {%loop-players%_afkcooldown} is 0:
+                    set {%loop-players%_afkcooldown} to 300
+                if {%loop-players%_afkcooldown} is not 0:
+                    subtract 1 from {%loop-players%_afkcooldown}
+
+            if {afkstats-%loop-players%} is "off":
+                set {afkstats-%loop-players%} to "on"
+                set {%loop-players%_afkcooldown} to 300
+            if {afkstats-%loop-players%} is "on":
+                if {%loop-players%_afkcooldown} is not set:
+                    set {afkstats-%loop-players%} to "on"
+                    set {%loop-players%_afkcooldown} to 300
+                if {%loop-players%_afkcooldown} is 0:
+                    set {%loop-players%_afkcooldown} to 300
+                    add 1 to {tokens::%uuid of player%}
+                if {%loop-players%_afkcooldown} is not 0:
+                    subtract 1 from {%loop-players%_afkcooldown}
+        if loop-players is not within location({roomx_afk},{roomy_afk},{roomz_afk}) and location({door2x_afk},{door2y_afk},{door2z_afk}):
+            set {afkstats-%loop-players%} to "off"
+
+
+every 1 second:
+    if {roomx_afk},{roomy_afk},{roomz_afk},{door2x_afk},{door2y_afk},{door2z_afk} is not set:
+        stop
+    loop all players:
+        if loop-players is within location({roomx_afk},{roomy_afk},{roomz_afk}) and location({door2x_afk},{door2y_afk},{door2z_afk}):
+            send action bar "&b%{%loop-players%_afkcooldown}% &7seconds to get &5Afk Token" to loop-player
+            send title "&5Afk" with subtract "&f%{%loop-players%_afkcooldown}%" to {afkstats-%loop-player%}
+
+
+on load:
+    delete {bsbsx_afk}
+    delete {bsbsy_afk}
+    delete {bsbsz_afk}
+    delete {bsbs2x_afk}
+    delete {bsbs2y_afk}
+    delete {bsbs2z_afk}
+    loop all players:
+        set {%loop-players%_afkcooldown} to 300
+        set {afkstats-%loop-players%} to "off"
+
+
+
+
+#Afkshop System
+command /tokens [<player>]:
+    trigger:
+        if arg is not set:
+            send "&7You have &5%{tokens::%uuid of player%}% &7Tokens"
+        if {tokens::%uuid of player%} is 0:
+            send "&7You have &50 &7Tokens"
+        else:
+            send "&7%arg% &7has &5%{tokens::%uuid of player%}% &7Tokens"
+
+command /settokens [<player>] [<integer>]:
+    permission: op
+    permission message: "&c(!) You must have op to do this command"
+    trigger:
+        if arg-1 is not set:
+            set {tokens::%uuid of player%} to arg-2
+            send "&7Set your Tokens to &b%arg-2%"
+        else:
+            set {tokens::%uuid of player%} to arg-2
+            send "&a(!) Set %arg-1%'s Tokens to %arg-2%"
+
+
+command /afkshop:
+    trigger:
+        set {_afkshop} to a new chest inventory with 5 row with name "&b&lAfk Shop"
+        set slot (all integers between 0 and 9) of {_afkshop} to gray stained glass pane with name "&r"
+        set slot (all integers between 36 and 39) of {_afkshop} to gray stained glass pane with name "&r"
+        set slot (all integers between 41 and 45) of {_afkshop} to gray stained glass pane with name "&r"
+        set slot 9 of {_afkshop} to gray stained glass pane with name "&r"
+        set slot 18 of {_afkshop} to gray stained glass pane with name "&r"
+        set slot 27 of {_afkshop} to gray stained glass pane with name "&r"
+        set slot 17 of {_afkshop} to gray stained glass pane with name "&r"
+        set slot 26 of {_afkshop} to gray stained glass pane with name "&r"
+        set slot 35 of {_afkshop} to player's skull named "&fAfk Shop" with lore "&7Obtain 1 token every 5 minutes from being AFK!" and "&7You must be inside the AFK room to" and "&7be able to receive shards." and "&r" and "&7You currently have &f%{tokens::%uuid of player%}% &7tokens."
+        open {_afkshop} to player
+
+
+command /itemshop [<integer>]:
+    permission: op
+    permission message: "&cYou do not have permission to do this command!"
+    trigger:
+        send "&aItem successfully added to the shop!"
+        if arg-1 is 1
+            set slot 10 of {_afkshop} to player's tool
+        if arg-1 is 2
+            set slot 11 of {_afkshop} to player's tool
+        if arg-1 is 3
+            set slot 12 of {_afkshop} to player's tool
+        if arg-1 is 4
+            set slot 13 of {_afkshop} to player's tool
+        if arg-1 is 5
+            set slot 14 of {_afkshop} to player's tool
+        if arg-1 is 6
+            set slot 15 of {_afkshop} to player's tool
+        if arg-1 is 7
+            set slot 16 of {_afkshop} to player's tool
+        if arg-1 is 8
+            set slot 19 of {_afkshop} to player's tool
+        if arg-1 is 9
+            set slot 20 of {_afkshop} to player's tool
+        if arg-1 is 10
+            set slot 21 of {_afkshop} to player's tool
+        if arg-1 is 11
+            set slot 22 of {_afkshop} to player's tool
+        if arg-1 is 12
+            set slot 23 of {_afkshop} to player's tool
+        if arg-1 is 13
+            set slot 24 of {_afkshop} to player's tool
+        if arg-1 is 14
+            set slot 25 of {_afkshop} to player's tool
+        if arg-1 is 15
+            set slot 28 of {_afkshop} to player's tool
+        if arg-1 is 16
+            set slot 29 of {_afkshop} to player's tool
+        if arg-1 is 17
+            set slot 30 of {_afkshop} to player's tool
+        if arg-1 is 18
+            set slot 31 of {_afkshop} to player's tool
+        if arg-1 is 19
+            set slot 32 of {_afkshop} to player's tool
+        if arg-1 is 20
+            set slot 33 of {_afkshop} to player's tool
+        if arg-1 is 21
+            set slot 34 of {_afkshop} to player's tool
+
+
+
+#AfkShop item rewards
+command /select_afkshop_reward [<integer>] [<integer>]:
+    permission: op
+    permission message: "&cYou do not have permission to do this command"
+    trigger:
+        if arg-1 is 1:
+            set {_select_afkshop_reward_tool1} to player's tool
+            set {_select_afkshop_reward_tool1_price1} to arg-2
+
+        if arg-1 is 2:
+            set {_select_afkshop_reward_tool2} to player's tool
+            set {_select_afkshop_reward_tool2_price2} to arg-2
+
+        if arg-1 is 3:
+            set {_select_afkshop_reward_tool3} to player's tool
+            set {_select_afkshop_reward_tool3_price3} to arg-2
+
+        if arg-1 is 4:
+            set {_select_afkshop_reward_tool4} to arg-1
+            set {_select_afkshop_reward_tool4_price4} to arg-2
+
+        if arg-1 is 5:
+            set {_select_afkshop_reward_tool5} to arg-1
+            set {_select_afkshop_reward_tool5_price5} to arg-2
+
+        if arg-1 is 6:
+            set {_select_afkshop_reward_tool6} to arg-1
+            set {_select_afkshop_reward_tool6_price6} to arg-2
+
+        if arg-1 is 7:
+            set {_select_afkshop_reward_tool7} to arg-1
+            set {_select_afkshop_reward_tool7_price7} to arg-2
+
+        if arg-1 is 8:
+            set {_select_afkshop_reward_tool8} to arg-1
+            set {_select_afkshop_reward_tool8_price8} to arg-2
+
+        if arg-1 is 9:
+            set {_select_afkshop_reward_tool9} to arg-1
+            set {_select_afkshop_reward_tool9_price9} to arg-2
+
+        if arg-1 is 10:
+            set {_select_afkshop_reward_tool10} to arg-1
+            set {_select_afkshop_reward_tool10_price10} to arg-2
+
+        if arg-1 is 11:
+            set {_select_afkshop_reward_tool11} to arg-1
+            set {_select_afkshop_reward_tool12_price11} to arg-2
+
+        if arg-1 is 12:
+            set {_select_afkshop_reward_tool12} to arg-1
+            set {_select_afkshop_reward_tool12_price12} to arg-2
+
+        if arg-1 is 13:
+            set {_select_afkshop_reward_tool13} to arg-1
+            set {_select_afkshop_reward_tool13_price13} to arg-2
+
+        if arg-1 is 14:
+            set {_select_afkshop_reward_tool14} to arg-1
+            set {_select_afkshop_reward_tool14_price14} to arg-2
+
+        if arg-1 is 15:
+            set {_select_afkshop_reward_tool15} to arg-1
+            set {_select_afkshop_reward_tool15_price15} to arg-2
+
+        if arg-1 is 16:
+            set {_select_afkshop_reward_tool16} to arg-1
+            set {_select_afkshop_reward_tool16_price16} to arg-2
+
+        if arg-1 is 17:
+            set {_select_afkshop_reward_tool17} to arg-1
+            set {_select_afkshop_reward_tool17_price17} to arg-2
+            
+        if arg-1 is 18:
+            set {_select_afkshop_reward_tool18} to arg-1
+            set {_select_afkshop_reward_tool18_price18} to arg-2
+
+        if arg-1 is 19:
+            set {_select_afkshop_reward_tool19} to arg-1
+            set {_select_afkshop_reward_tool19_price19} to arg-2
+
+        if arg-1 is 20:
+            set {_select_afkshop_reward_tool20} to arg-1
+            set {_select_afkshop_reward_tool20_price20} to arg-2
+
+        if arg-1 is 21:
+            set {_select_afkshop_reward_tool21} to arg-1
+            set {_select_afkshop_reward_tool21_price21} to arg-2
+        
+
+			
+			
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop":
+        cancel event
+		
+		
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop":
+        if event-slot is 10:
+            if {tokens::%uuid of player%} >= {_select_afkshop_reward_tool1_price1}:
+                remove {_select_afkshop_reward_tool1_price1} from {tokens::%uuid of player%}
+                give player {_select_afkshop_reward_tool1}
+                play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 11
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price2}:
+        remove {_select_afkshop_reward_tool1_price2} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool2}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 12
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price3}:
+        remove {_select_afkshop_reward_tool1_price3} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool3}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 13
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price4}:
+        remove {_select_afkshop_reward_tool1_price4} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool4}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 14
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price5}:
+        remove {_select_afkshop_reward_tool1_price5} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool5}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 15
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price6}:
+        remove {_select_afkshop_reward_tool1_price6} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool6}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 16
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price7}:
+        remove {_select_afkshop_reward_tool1_price7} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool7}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 19
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price8}:
+        remove {_select_afkshop_reward_tool1_price8} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool8}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 20
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price9}:
+        remove {_select_afkshop_reward_tool1_price9} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool9}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 21
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price10}:
+        remove {_select_afkshop_reward_tool1_price10} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool10}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 22
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price11}:
+        remove {_select_afkshop_reward_tool1_price11} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool11}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 23
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price12}:
+        remove {_select_afkshop_reward_tool1_price12} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool12}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 24
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price13}:
+        remove {_select_afkshop_reward_tool1_price13} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool13}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 25
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price14}:
+        remove {_select_afkshop_reward_tool1_price14} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool14}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 28
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price15}:
+        remove {_select_afkshop_reward_tool1_price15} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool15}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 29
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price16}:
+        remove {_select_afkshop_reward_tool1_price16} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool16}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 30
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price17}:
+        remove {_select_afkshop_reward_tool1_price17} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool17}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 31
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price18}:
+        remove {_select_afkshop_reward_tool1_price18} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool18}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 32
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price19}:
+        remove {_select_afkshop_reward_tool1_price19} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool19}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 33
+    if {tokens:%uuid of player%} {_select_afkshop_reward_tool1_price20}:
+        remove {_select_afkshop_reward_tool1_price20} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool20}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+on inventory click:
+    if name of event-inventory is "&b&lAfk Shop"
+    if event-slot is 34
+    if {tokens:%uuid of player%} >= {_select_afkshop_reward_tool1_price21}:
+        remove {_select_afkshop_reward_tool1_price21} from {tokens::%uuid of player%}
+        give player {_select_afkshop_reward_tool21}
+        play sound "ENTITY_PLAYER_LEVELUP" with volume 1 and pitch 1 to player
+
+
+
+
+
+
+#Afk teleport setup
+command /afklocation:
+    permission: op
+    permission message: "&c&l(!) &cYou do not have permission to do this command"
+    trigger:
+        set {_afklocation} to player's location
+
+#Afk teleport
+command /afk:
+    cooldown: 2 seconds
+    cooldown message: "&cPlease don't spam!"
+    trigger:
+        set {afk::%player%} to true
+        send "&aTeleporting to AFK room... Do not move!"
+        wait 5 seconds
+        if {afk::%player%} is true:
+            teleport player to location at {_afklocation}
+            send "&aYou have been teleported to the AFK room!"
+        else:
+            send "&cTeleportation cancelled because you moved."
+        delete {afk::%player%}
+
+on player move:
+    if {afk::%player%} is set:
+        send "&cTeleportation cancelled because you moved."
+        delete {afk::%player%}
+
+
+
+
+#Help command
+command /wolfeskript_help:
+    permission: op
+    permission message: "&cYou do not have permission to do this command"
+    trigger:
+        send "&b&lCommand that you need to know" to player
+        send "" to player
+        send "&b1. &7/select_afkshop_reward <number> <number>" to player
+        send "&b2. &7/select_afk_room, but you have to rename your tool to "tool_afk"" to player
+        send "&b3. &7/itemshop <number of slot: any number 1-21>, this command is to set slot of the afkshop" to player
+        send "&b4. &7/select_afkshop_reward <number of items: any number from 1-24> <price>" to player
+        send "&b5. &7/settokens <player> <number>" to player
+        send "&b5. &7/afklocation to select afk's location" to player
+        send "" to player
+        send "&7If you have any questions about my skripts, dm: @yt1wolfe"

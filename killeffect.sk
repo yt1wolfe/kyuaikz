@@ -1,0 +1,236 @@
+# Made by yt1wolfe
+command /killeffects:
+    trigger:
+        set {_killeffectmenu} to a new chest inventory with 4 rows with name "&fKilleffect Menu"
+        set slot (all integers between 0 and 8) of {_killeffectmenu} to gray stained glass named "&r"
+        set slot (all integers between 36 and 43) of {_killeffectmenu} to gray stained glass named "&r"
+        set slot 44 of {_killeffectmenu} to barrier named "&cClick to clear"
+        set slot 18 of {_killeffectmenu} to gray stained glass pane named "&r"
+        set slot 26 of {_killeffectmenu} to gray stained glass pane named "&r"
+        set slot 17 of {_killeffectmenu} to gray stained glass pane named "&r"
+        set slot 27 of {_killeffectmenu} to gray stained glass pane named "&r"
+        set slot 35 of {_killeffectmenu} to gray stained glass pane named "&r"
+        set slot 40 of {_killeffectmenu} to gray stained glass pane named "&r"
+        set slot 10 of {_killeffectmenu} to totem named "&5TOTEM &fKilleffect" with lore "&7| When you kill someone, you will see the totem particle on the screen and it will play the totem sound!" and "&7| Click to select this killeffect"
+        set slot 11 of {_killeffectmenu} to anvil named "&7ANVIL &fKilleffect" with lore "&7| When you kill someone, an anvil sound will play each kill with an effect" and "&7| Click to select this killeffect"
+        set slot 12 of {_killeffectmenu} to firework named "&4FIREWORK &fKilleffect" with lore "&7| When you kill someone, launches a firework at the victim's location!" and "&7| Click to select this killeffect"
+        set slot 13 of {_killeffectmenu} to lightning rod named "&fLIGHTING &fKilleffect" with lore "&7| When you kill someone, light your victim on fire with lightning!" and "&7| Click to select this killeffect"
+        set slot 14 of {_killeffectmenu} to tnt named "&4TNT &fKilleffect" with lore "&7| When you kill someone, explode your victim after each kill!" and "&7| Click to select this killeffect"
+        set slot 15 of {_killeffectmenu} to armor stand named "&aARMOR STAND &fKilleffect" with lore "&7| When you kill someone, spawn a small armor stand with the victim's armor and tools!" and "&7| Click to select this killeffect"
+        set slot 16 of {_killeffectmenu} to stone button named "&7Coming Soon..."
+        set slot (all integers between 19 and 25) of {_killeffectmenu} to stone button named "&7Coming Soon..."
+        open {_killeffectmenu} to player
+
+command /killeffectkey:
+    permission: op
+    permission message: "&a&l(!) &aYou do not have permission to do this command"
+    trigger:
+        give key named "&5Random Killeffect Key" with lore "&7Right-click to claim a random killeffect!" and "&r" and "&5&lLEGENDARY" to player
+
+on inventory click:
+    if name of event-inventory is "&fKilleffect Menu":
+        cancel event
+
+on right click:
+    if player's tool is a key named "&5Random Killeffect Key" with lore "&7Right-click to claim a random killeffect!" and "&r" and "&5&lLEGENDARY":
+        cancel event
+        set {_permissions::*} to "killeffect.totem", "killeffect.anvil", "killeffect.firework", "killeffect.lighting", "killeffect.tnt", "killeffect.armor.stand"
+        set {_random} to a random integer between 1 and size of {_permissions::*}
+        set {_selected-permission} to {_permissions::%{_random}%}
+        execute console command "lp user %player% permission add %{_selected-permission}% true"
+        send "&a(!) You have received the permission %{_selected-permission}%"
+        remove 1 of player's tool
+
+# Killeffect 1 (TOTEM)
+on inventory click:
+    if name of event-inventory is "&fKilleffect Menu":
+        if event-slot is 10:
+            if player has permission "killeffect.totem":
+                play sound "entity.player.levelup" to player
+                set {_selected1} to true
+                send "&a&l(!) &aYou have selected the Killeffect" to player
+                close inventory
+
+on death of player:
+    if attacker is a player:
+        if attacker has permission "killeffect.totem":
+            if {_selected1} is true:
+                delete {_selected2}
+                delete {_selected3}
+                delete {_selected4}
+                delete {_selected5}
+                delete {_selected6}
+                delete {_selected7}
+                play sound "item.totem.use" to attacker
+                play resurrection by totem on attacker
+            else:
+                set slot 10 of {_killeffectmenu} to barrier named "&cYou don't have permission" with lore "&r", "&8➔ Status: &c〤", "&r" and "&cPurchase keys with /buy"
+                wait 3 seconds
+                set slot 10 of {_killeffectmenu} to air
+
+# Killeffect 2 (ANVIL)
+on inventory click:
+    if name of event-inventory is "&fKilleffect Menu":
+        if event-slot is 11:
+            if player has permission "killeffect.anvil":
+                play sound "entity.player.levelup" to player
+                set {_selected2} to true
+                send "&a&l(!) &aYou have selected the Killeffect" to player
+                close inventory
+
+on death of player:
+    if attacker is a player:
+        if attacker has permission "killeffect.anvil":
+            if {_selected2} is true:
+                delete {_selected1}
+                delete {_selected3}
+                delete {_selected4}
+                delete {_selected5}
+                delete {_selected6}
+                delete {_selected7}
+                play sound "entity.anvil.use" to attacker
+                set {_location} to victim's location
+                drop 1 anvil at {_location}
+                wait 3 seconds
+                remove all anvils at {_location}
+            else:
+                set slot 11 of {_killeffectmenu} to barrier named "&cYou don't have permission" with lore "&r", "&8➔ Status: &c〤", "&r" and "&cPurchase keys with /buy"
+                wait 3 seconds
+                set slot 11 of {_killeffectmenu} to air
+
+# Killeffect 3 (FIREWORK)
+on inventory click:
+    if name of event-inventory is "&fKilleffect Menu":
+        if event-slot is 12:
+            if player has permission "killeffect.firework":
+                play sound "entity.player.levelup" to player
+                set {_selected3} to true
+                send "&a&l(!) &aYou have selected the Killeffect" to player
+                close inventory
+
+on death of player:
+    if attacker is a player:
+        if attacker has permission "killeffect.firework":
+            if {_selected3} is true:
+                delete {_selected1}
+                delete {_selected2}
+                delete {_selected4}
+                delete {_selected5}
+                delete {_selected6}
+                delete {_selected7}
+                play fireworks with color red at location of victim
+            else:
+                set slot 12 of {_killeffectmenu} to barrier named "&cYou don't have permission" with lore "&r", "&8➔ Status: &c〤", "&r" and "&cPurchase keys with /buy"
+                wait 3 seconds
+                set slot 12 of {_killeffectmenu} to air
+
+# Killeffect 4 (LIGHTING)
+on inventory click:
+    if name of event-inventory is "&fKilleffect Menu":
+        if event-slot is 13:
+            if player has permission "killeffect.lighting":
+                play sound "entity.player.levelup" to player
+                set {_selected4} to true
+                send "&a&l(!) &aYou have selected the Killeffect" to player
+                close inventory
+
+on death of player:
+    if attacker is a player:
+        if attacker has permission "killeffect.lighting":
+            if {_selected4} is true:
+                delete {_selected1}
+                delete {_selected2}
+                delete {_selected3}
+                delete {_selected5}
+                delete {_selected6}
+                delete {_selected7}
+                strike lightning at location of victim
+                if damage cause is lightning:
+                    cancel event
+            else:
+                set slot 13 of {_killeffectmenu} to barrier named "&cYou don't have permission" with lore "&r", "&8➔ Status: &c〤", "&r" and "&cPurchase keys with /buy"
+                wait 3 seconds
+                set slot 13 of {_killeffectmenu} to air
+
+# Killeffect 5 (TNT)
+on inventory click:
+    if name of event-inventory is "&fKilleffect Menu":
+        if event-slot is 14:
+            if player has permission "killeffect.tnt":
+                play sound "entity.player.levelup" to player
+                set {_selected5} to true
+                send "&a&l(!) &aYou have selected the Killeffect" to player
+                close inventory
+
+on death of player:
+    if attacker is a player:
+        if attacker has permission "killeffect.tnt":
+            if {_selected5} is true:
+                delete {_selected1}
+                delete {_selected2}
+                delete {_selected3}
+                delete {_selected4}
+                delete {_selected6}
+                delete {_selected7}
+                set {_victim} to victim's location
+                spawn tnt at {_victim}
+                set {_tnt} to last spawned entity
+                ignite {_tnt} for 5 seconds
+                cancel event
+                make {_tnt} explode without causing damage or breaking blocks
+            else:
+                set slot 14 of {_killeffectmenu} to barrier named "&cYou don't have permission" with lore "&r", "&8➔ Status: &c〤", "&r" and "&cPurchase keys with /buy"
+                wait 3 seconds
+                set slot 14 of {_killeffectmenu} to air
+
+# Killeffect 6 (ARMOR STAND)
+on inventory click:
+    if name of event-inventory is "&fKilleffect Menu":
+        if event-slot is 15:
+            if player has permission "killeffect.armor.stand":
+                play sound "entity.player.levelup" to player
+                set {_selected6} to true
+                send "&a&l(!) &aYou have selected the Killeffect" to player
+                close inventory
+
+on death of player:
+    if attacker is a player:
+        if attacker has permission "killeffect.armor.stand":
+            if {_selected6} is true:
+                delete {_selected1}
+                delete {_selected2}
+                delete {_selected3}
+                delete {_selected4}
+                delete {_selected5}
+                delete {_selected7}
+                # Spawn the armor stand at the victim's location
+                set {_location} to location of victim
+                spawn armor stand at {_location}
+                set {_armorStand} to last spawned entity
+                
+                # Set equipment of the armor stand to the victim's equipment
+                set equipment of {_armorStand} to victim's helmet, victim's chestplate, victim's leggings, victim's boots
+                
+                # Set the hand items of the armor stand (both main and offhand)
+                set {_armorStand}'s item in main hand to victim's item in main hand
+                set {_armorStand}'s item in offhand to victim's item in offhand
+				
+				# Remove the armor stand
+				wait 10 secondes
+				delete {_armorStand}
+            else:
+                set slot 16 of {_killeffectmenu} to barrier named "&cYou don't have permission" with lore "&r", "&8➔ Status: &c〤", "&r" and "&cPurchase keys with /buy"
+                wait 3 seconds
+                set slot 16 of {_killeffectmenu} to air
+
+# Remove killeffect
+on inventory click:
+    if name of event-inventory is "&fKilleffect Menu":
+        if event-slot is 44:
+            delete {_selected1}
+            delete {_selected2}
+            delete {_selected3}
+            delete {_selected4}
+            delete {_selected5}
+            delete {_selected6}
+            delete {_selected7}

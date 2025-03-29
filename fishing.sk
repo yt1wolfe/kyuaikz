@@ -1,0 +1,152 @@
+#Made by yt1wolfe
+
+command /fish:
+	trigger:
+		gui(player)
+
+
+function gui(P: player):
+    set {_gui1} to a new chest inventory with 5 row with name "&7Fishingdrops"
+    set slot (all integers between 0 and 8) of {_gui1} to gray stained glass pane named "&r"
+    set slot 9 of {_gui1} to gray stained glass pane named "&r"
+
+    set slot 17 of {_gui1} to gray stained glass pane named "&r"
+    set slot 18 of {_gui1} to gray stained glass pane named "&r"
+    set slot 26 of {_gui1} to gray stained glass pane named "&r"
+    set slot 27 of {_gui1} to gray stained glass pane named "&r"
+    set slot 35 of {_gui1} to gray stained glass pane named "&r"
+    set slot (all integers between 36 and 39) of {_gui1} to gray stained glass pane named "&r"
+    set slot (all integers between 41 and 43) of {_gui1} to gray stained glass pane named  "&r"
+    set slot 40 of {_gui1} to white candle named "&x&A&D&F&3&F&DT&x&A&D&F&3&F&De&x&A&D&F&3&F&Dl&x&A&D&F&3&F&De&x&A&D&F&3&F&Dp&x&A&D&F&3&F&Do&x&A&D&F&3&F&Dr&x&A&D&F&3&F&Dt &x&A&D&F&3&F&Dt&x&A&D&F&3&F&Do &x&A&D&F&3&F&Df&x&A&D&F&3&F&Di&x&A&D&F&3&F&Ds&x&A&D&F&3&F&Dh&x&A&D&F&3&F&Di&x&A&D&F&3&F&Dn&x&A&D&F&3&F&Dg &x&A&D&F&3&F&Da&x&A&D&F&3&F&Dr&x&A&D&F&3&F&De&x&A&D&F&3&F&Da" with lore "&r" and "&7Fishing is good for beginners" and "&7Upgrade your rod to get better rewards" and "&r" and "&7&lCLICK TO TELEPORT"
+    set slot 44 of {_gui1} to hopper named "&x&7&4&F&F&9&AF&x&7&4&F&F&9&Ai&x&7&4&F&F&9&As&x&7&4&F&F&9&Ah&x&7&4&F&F&9&Ai&x&7&4&F&F&9&An&x&7&4&F&F&9&Ag&x&7&4&F&F&9&Ad&x&7&4&F&F&9&Ar&x&7&4&F&F&9&Ao&x&7&4&F&F&9&Ap&x&7&4&F&F&9&As" with lore "&7Check fishing drops to see rewards" with lore "&r" and "&7&lRIGHT CLICK TO VIEW"
+    
+    set slot 20 of {_gui1} to fishing rod of unbreakable named "&7Fishing rod &a★1" with lore "&r" and "&a&lCOMMON" and "&r" and "&8Prices:" and "&7➥ Free" and hide enchantments
+    set slot 21 of {_gui1} to fishing rod of lure 1 and unbreakable named "&7Fishing rod &x&F&8&7&8&F&F★2" with lore "&r" and "&7Fishing Speed: &x&F&8&7&8&F&F+20" and "&7Fishing Loot: &x&F&8&7&8&F&F+5" and "&r" and "&x&F&8&7&8&F&F&lU&x&F&8&7&8&F&F&lN&x&F&8&7&8&F&F&lC&x&F&8&7&8&F&F&lO&x&F&8&7&8&F&F&lM&x&F&8&7&8&F&F&lM&x&F&8&7&8&F&F&lU&x&F&8&7&8&F&F&lN" and "&r" and "&8Prices:" and "&7➥ Free" and "&aClick to purchase" and hide enchantments #1 rod
+    set slot 22 of {_gui1} to fishing rod of lure 2 and unbreakable named "&7Fishing rod &x&7&8&D&3&F&F★3" with lore "&r" and "&7Fishing Speed: &x&7&8&D&3&F&F+30" and "&7Fishing Loot: &x&7&8&D&3&F&F+10" and "&r" and "&x&7&8&F&A&F&F&lR&x&7&8&F&A&F&F&lA&x&7&8&F&A&F&F&lR&x&7&8&F&A&F&F&lE" and "&r" and "&8Prices:" and "&7➥ Fishing rod &a★1" and "&7➥ 32 diamonds" and "&aClick to purchase" and hide enchantments #2 rod
+    set slot 23 of {_gui1} to fishing rod of lure 3 and unbreakable and luck of the sea 1 named "&7Fishing rod &6★4" with lore "&r" and "&7Fishing Speed: &6+40" and "&7Fishing Loot: &6+15" and "&r" and "&6&lLEGENDARY" and "&r" and "&8Prices:" and "&7➥ Fishing rod &a★2" and "&7➥ item" and "&aClick to purchase" and hide enchantments #4 rod
+    set slot 24 of {_gui1} to fishing rod of lure 3 and unbreakable and luck of the sea 2 named "&7Fishing rod &4★5" with lore "&r" and "&7Fishing Speed: &4+50" and "&7Fishing Loot: &4+20" and "&r" and "&4&lMYTHIC" and "&r" and "&8Prices:" and "&7➥ Fishing rod &a★3" and "&7➥ Item" and "&aClick to purchase" and hide enchantments #5 rod
+
+    open {_gui1} to {_P}
+
+
+on inventory click:
+    if name of event-inventory is "&7Fishingdrops":
+        cancel event
+
+on inventory click:
+    if name of event-inventory is "&7Fishingdrops":
+        if event-slot is 20:
+            give fishing rod of unbreakable named "&7Fishing rod &a★1" with lore "&r" and "&a&lCOMMON" and hide enchantments to player
+
+on inventory click:
+    if name of event-inventory is "&7Fishingdrops":
+        if event-slot is 21:
+            give fishing rod of lure 1 and unbreakable named "&7Fishing rod &x&F&8&7&8&F&F★2" with lore "&r" and "&7Fishing Speed: &x&F&8&7&8&F&F+" and "&7Fishing Loot: &x&F&8&7&8&F&F+5" and "&r" and "&x&F&8&7&8&F&F&lU&x&F&8&7&8&F&F&lN&x&F&8&7&8&F&F&lC&x&F&8&7&8&F&F&lO&x&F&8&7&8&F&F&lM&x&F&8&7&8&F&F&lM&x&F&8&7&8&F&F&lU&x&F&8&7&8&F&F&lN" and hide enchantments to player #1 rod
+
+on inventory click:
+    if name of event-inventory is "&7Fishingdrops":
+        if event-slot is 22:
+            give fishing rod of lure 2 and unbreakable named "&7Fishing rod &x&7&8&D&3&F&F★3" with lore "&r" and "&7Fishing Speed: &x&7&8&D&3&F&F+30" and "&7Fishing Loot: &x&7&8&D&3&F&F+10" and "&r" and "&x&7&8&F&A&F&F&lR&x&7&8&F&A&F&F&lA&x&7&8&F&A&F&F&lR&x&7&8&F&A&F&F&lE" and hide enchantments to player
+
+on inventory click:
+    if name of event-inventory is "&7Fishingdrops":
+        if event-slot is 23:
+            give fishing rod of lure 3 and unbreakable and luck of the sea 1 named "&7Fishing rod &6★4" with lore "&r" and "&7Fishing Speed: &6+40" and "&7Fishing Loot: &6+15" and "&r" and "&6&lLEGENDARY" and hide enchantments to player
+
+on inventory click:
+    if name of event-inventory is "&7Fishingdrops":
+        if event-slot is 24:
+            give fishing rod of lure 3 and unbreakable and luck of the sea 2 named "&7Fishing rod &4★5" with lore "&r" and "&7Fishing Speed: &4+50" and "&7Fishing Loot: &4+20" and "&r" and "&4&lMYTHIC" and hide enchantments to player
+
+
+
+
+
+
+
+on inventory click:
+    if name of event-inventory is "&7Fishingdrops":
+        if event-slot is 40:
+            teleport player to location at 0, 0, 0 in world "world"
+
+
+
+
+on fish:
+    if fish state = caught fish:
+        set item of caught entity to iron block
+
+        chance of 50%:
+            set item of caught entity to gold block
+
+        chance of 30%:
+            set item of caught entity to netherite block
+        
+        chance of 15%:
+            set item of caught entity to {_reward1}
+        
+        chance of 10%:
+            set item of caught entity to {_reward2}
+
+        chance of 5%:
+            set item of caught entity to {_reward3}
+        
+        chance of 3%:
+            set item of caught entity to {_reward4}
+
+        chance of 1%:
+            set item of caught entity to {_reward5}
+            
+        chance of 0.8%:
+            set item of caught entity to {_reward6}
+
+        chance of 0.01%:
+            set item of caught entity to {_reward7}
+
+
+
+
+command /fishingreward [<integer>]:
+    permission: op
+    permission message: "&cYou do not have permission to do this command"
+    trigger:
+        if arg-1 is 1:
+            set {_reward1} to player's item
+        if arg-1 is 2:
+            set {_reward2} to player's item
+        if arg-1 is 3:
+            set {_reward3} to player's item
+        if arg-1 is 4:
+            set {_reward4} to player's item
+        if arg-1 is 5:
+            set {_reward5} to player's item
+        if arg-1 is 6:
+            set {_reward6} to player's item
+        if arg-1 is 7:
+            set {_reward7} to player's item
+
+on tab complete of "/fishingreward":
+    set tab completions for position 1 to "1", "2", "3", "4", "5", "6", "7"
+
+
+
+# Fishingdrops
+# If you have any new blocks to add, add them
+command /fishingdrops:
+    trigger:
+        fishingdropsgui(player)
+        
+
+function fishingdropsgui(P1: player):
+    set {_gui12} to a new chest inventory with 3 row with name "Fishingdrops"
+    set slot 0 of {_gui12} to iron block with lore "&#EFFF85➥ 100%"
+    set slot 1 of {_gui12} to gold block with lore "&#EFFF85➥ 50%"
+    set slot 2 of {_gui12} to netherite block with lore "&#EFFF85➥ 30%"
+    set slot 3 of {_gui12} to {_reward1} with lore "&#EFFF85➥ 20%"
+    set slot 4 of {_gui12} to {_reward2} with lore "&#EFFF85➥ 15%"
+    set slot 5 of {_gui12} to {_reward3} with lore "&#EFFF85➥ 10%"
+    set slot 6 of {_gui12} to {_reward4} with lore "&#EFFF85➥ 5%"
+    set slot 7 of {_gui12} to {_reward5} with lore "&#EFFF85➥ 3%"
+    set slot 8 of {_gui12} to {_reward6} with lore "&#EFFF85➥ 0.8%"
+    set slot 9 of {_gui12} to {_reward7} with lore "&#EFFF85➥ 0.01%"
+    open {_gui12} to {_P1}

@@ -1,0 +1,279 @@
+command /buy:
+    aliases: /store
+    trigger:
+        set {_gui} to a new chest inventory with 6 row with name "&f&lShop Menu"
+        set slot 0 of {_gui} to gray stained glass pane with name "&r"
+        set slot 1 of {_gui} to gray stained glass pane with name "&r"
+        set slot 7 of {_gui} to gray stained glass pane with name "&r"
+        set slot 8 of {_gui} to gray stained glass pane with name "&r"
+        set slot 10 of {_gui} to gray stained glass pane with name "&r"
+        set slot 11 of {_gui} to lime stained glass pane with name "&r"
+        set slot 12 of {_gui} to gray stained glass pane with name "&r"
+        set slot 13 of {_gui} to gray stained glass pane with name "&r"
+        set slot 14 of {_gui} to gray stained glass pane with name "&r"
+        set slot 15 of {_gui} to gray stained glass pane with name "&r"
+        set slot 16 of {_gui} to gray stained glass pane with name "&r"
+        set slot 45 of {_gui} to gray stained glass pane with name "&r"
+        set slot 46 of {_gui} to gray stained glass pane with name "&r"
+        set slot 47 of {_gui} to gray stained glass pane with name "&r"
+        set slot 48 of {_gui} to gray stained glass pane with name "&r"
+        set slot 3 of {_gui} to bone with name "&a&lSUBSCRIPTIONS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase monthly ranks!" and "&r" and "&8• &fContains &a2 packages" and "&r" and "&a➥ &fClick To View"
+        set slot (all integers between 50 and 53) of {_gui} to gray stained glass pane with name "&r"
+        set slot 49 of {_gui} to player's skull named "&f&lSTILL CONFUSED?" with lore "&8ɢᴜɪᴅᴇ" and "&r" and "&f➥ Click for a direct link to our store"
+        set slot 2 of {_gui} to paper with name "&6&lRANKS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase permanent ranks!" and "&r" and "&8• &fContains &67 packages" and "&r" and "&6➥ &fClick To View" and hide enchantments
+        set slot 28 of {_gui} to pink stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $Prices" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 29 of {_gui} to green stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $Prices" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 30 of {_gui} to red stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $Prices" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 31 of {_gui} to cyan stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $Prices" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 32 of {_gui} to magenta stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $Prices" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 33 of {_gui} to lime stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $Prices" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 6 of {_gui} to stone button with name "&7Coming soon..."
+        set slot 34 of {_gui} to orange stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $Prices" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 4 of {_gui} to netherite ingot with name "&4&lKEYS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase cool keys!" and "&r" and "&8• &fContains &45 packages" and "&r" and "&4➥ &fClick To View" and hide enchantments
+        set slot 5 of {_gui} to glow berries with name "&d&lRANK UPGRADE" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase rank upgrades!" and "&r" and "&8• &fContains &d6 packages" and "&r" and "&d➥ &fClick To View" and hide enchantments
+        open {_gui} to player
+
+#store ranks 1
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 49:
+            send "&r"
+            send "<link:LINK OF THE WEBSTORE>&a&lClick to purchase" to player
+            send "&7LINK OF THE WEBSTORE" to player
+            send "&r"
+            close player's inventory
+
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 28:
+            send "&r"
+            send "<link:LINK OF THE WEBSTORE>&a&lClick to purchase" to player
+            send "&7LINK OF THE WEBSTORE" to player
+            send "&r"
+            close player's inventory
+
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 29:
+            send "&r"
+            send "<link:LINK OF THE WEBSTORE>&a&lClick to purchase" to player
+            send "&7LINK OF THE WEBSTORE" to player
+            send "&r"
+            close player's inventory
+			
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 30:
+            send "&r"
+            send "<link:LINK OF THE WEBSTORE>&a&lClick to purchase" to player
+            send "&7LINK OF THE WEBSTORE" to player
+            send "&r"
+            close player's inventory
+			
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 31:
+            send "&r"
+            send "<link:LINK OF THE WEBSTORE>&a&lClick to purchase" to player
+            send "&7LINK OF THE WEBSTORE" to player
+            send "&r"
+            close player's inventory
+			
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 32:
+            send "&r"
+            send "<link:LINK OF THE WEBSTORE>&a&lClick to purchase" to player
+            send "&7LINK OF THE WEBSTORE" to player
+            send "&r"
+            close player's inventory
+			
+			
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 33:
+            send "&r"
+            send "<link:LINK OF THE WEBSTORE>&a&lClick to purchase" to player
+            send "&7LINK OF THE WEBSTORE" to player
+            send "&r"
+            close player's inventory
+			
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 34:
+            send "&r"
+            send "<link:LINK OF THE WEBSTORE>&a&lClick to purchase" to player
+            send "&7LINK OF THE WEBSTORE" to player
+            send "&r"
+            close player's inventory
+			
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        cancel event
+
+
+
+
+
+#store 1 ranks
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 2:
+            set {_gui1} to a new chest inventory with 6 row with name "&f&lShop Menu"
+        set slot 0 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 1 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 7 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 8 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 10 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 11 of {_gui1} to lime stained glass pane with name "&r"
+        set slot 12 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 13 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 14 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 15 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 16 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 45 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 46 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 47 of {_gui1} to gray stained glass pane with name "&r"
+        set slot 48 of {_gui1} to gray stained glass pane with name "&r"
+        set slot (all integers between 50 and 53) of {_gui1} to gray stained glass pane with name "&r"
+        set slot 3 of {_gui1} to bone with name "&a&lSUBSCRIPTIONS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase monthly ranks!" and "&r" and "&8• &fContains &a2 packages" and "&r" and "&a➥ &fClick To View" and hide enchantments
+        set slot (all integers between 50 and 53) of {_gui} to gray stained glass pane with name "&r"
+        set slot 49 of {_gui1} to player's skull named "&f&lSTILL CONFUSED?" with lore "&8ɢᴜɪᴅᴇ" and "&r" and "&f➥ Click for a direct link to our store"
+        set slot 2 of {_gui1} to paper with name "&6&lRANKS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase permanent ranks!" and "&r" and "&8• &fContains &67 packages" and "&r" and "&6➥ &fClick To View" and hide enchantments
+        set slot 28 of {_gui1} to pink stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $5.99" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 29 of {_gui1} to green stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $9.99" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 30 of {_gui1} to red stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $12.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 31 of {_gui1} to cyan stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $15.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 32 of {_gui1} to magenta stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $19.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 33 of {_gui1} to lime stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $25.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 6 of {_gui1} to stone button with name "&7Coming soon..."
+        set slot 34 of {_gui1} to orange stained glass of unbreaking 10 with name "&f" with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $29.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+        set slot 4 of {_gui1} to netherite ingot with name "&4&lKEYS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase cool keys!" and "&r" and "&8• &fContains &45 packages" and "&r" and "&4➥ &fClick To View" and hide enchantments
+        set slot 5 of {_gui1} to glow berries with name "&d&lRANK UPGRADE" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase rank upgrades!" and "&r" and "&8• &fContains &d6 packages" and "&r" and "&d➥ &fClick To View" and hide enchantments
+        open {_gui1} to player
+			
+			
+			
+			
+			
+			
+			
+			
+#store 2 subscriptions
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 3:
+            set {_gui2} to a new chest inventory with 6 row with name "&f&lShop Menu"
+            set slot 0 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 1 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 7 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 8 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 10 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 11 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 12 of {_gui2} to lime stained glass pane with name "&r"
+            set slot 13 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 14 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 15 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 16 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 45 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 46 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 47 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 48 of {_gui2} to gray stained glass pane with name "&r"
+            set slot 6 of {_gui2} to stone button with name "&7Coming soon..."
+            set slot 30 of {_gui2} to stone button with name "&7Coming soon..."
+            set slot 31 of {_gui2} to stone button with name "&7Coming soon..."
+            set slot 32 of {_gui2} to stone button with name "&7Coming soon..."
+            set slot 33 of {_gui2} to stone button with name "&7Coming soon..."
+            set slot 34 of {_gui2} to stone button with name "&7Coming soon..."
+            set slot 5 of {_gui2} to glow berries with name "&d&lRANK UPGRADE" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase rank upgrades!" and "&r" and "&8• &fContains &d6 packages" and "&r" and "&d➥ &fClick To View" and hide enchantments
+            set slot 4 of {_gui2} to netherite ingot with name "&4&lKEYS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase cool keys!" and "&r" and "&8• &fContains &45 packages" and "&r" and "&4➥ &fClick To View" and hide enchantments
+            set slot 3 of {_gui2} to bone with name "&a&lSUBSCRIPTIONS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase monthly ranks!" and "&r" and "&8• &fContains &a2 packages" and "&r" and "&a➥ &fClick To View" and hide enchantments
+            set slot (all integers between 50 and 53) of {_gui2} to gray stained glass pane with name "&r"
+            set slot 49 of {_gui2} to player's skull named "&f&lSTILL CONFUSED?" with lore "&8ɢᴜɪᴅᴇ" and "&r" and "&f➥ Click for a direct link to our store"
+            set slot (all integers between 50 and 53) of {_gui2} to gray stained glass pane with name "&r"
+            set slot 2 of {_gui2} to paper with name "&6&lRANKS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase permanent ranks!" and "&r" and "&8• &fContains &67 packages" and "&r" and "&6➥ &fClick To View" and hide enchantments
+            set slot 28 of {_gui2} to honeycomb of unbreaking 10 with name "&f &7(30 days)" with lore "&8ѕᴜʙѕᴄʀɪᴘᴛɪᴏɴѕ" and "&r" and "&7Price:" and "&f➥ $11.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+            set slot 29 of {_gui2} to honeycomb of unbreaking 10 with name "&f &7(90 days)" with lore "&8ѕᴜʙѕᴄʀɪᴘᴛɪᴏɴѕ" and "&r" and "&7Price:" and "&f➥ $33.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+            open {_gui2} to player
+			
+			
+			
+			
+			
+			
+			
+#store 3 keys
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 4:
+            set {_gui3} to a new chest inventory with 6 row with name "&f&lShop Menu"
+            set slot 0 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 1 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 7 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 8 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 10 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 11 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 12 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 13 of {_gui3} to lime stained glass pane with name "&r"
+            set slot 14 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 15 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 16 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 45 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 46 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 47 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 48 of {_gui3} to gray stained glass pane with name "&r"
+            set slot 6 of {_gui3} to stone button with name "&7Coming soon..."
+            set slot 3 of {_gui3} to bone with name "&a&lSUBSCRIPTIONS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase monthly ranks!" and "&r" and "&8• &fContains &a2 packages" and "&r" and "&a➥ &fClick To View" and hide enchantments
+            set slot (all integers between 50 and 53) of {_gui3} to gray stained glass pane with name "&r"
+            set slot 49 of {_gui3} to player's skull named "&f&lSTILL CONFUSED?" with lore "&8ɢᴜɪᴅᴇ" and "&r" and "&f➥ Click for a direct link to our store" and hide enchantments
+            set slot 4 of {_gui3} to netherite ingot with name "&4&lKEYS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase cool keys!" and "&r" and "&8• &fContains &45 packages" and "&r" and "&4➥ &fClick To View" and hide enchantments
+            set slot 2 of {_gui3} to paper with name "&6&lRANKS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase permanent ranks!" and "&r" and "&8• &fContains &67 packages" and "&r" and "&6➥ &fClick To View" and hide enchantments
+            set slot 28 of {_gui3} to stone button with name "&7Coming soon..."
+            set slot 29 of {_gui3} to stone button with name "&7Coming soon..."
+            set slot 30 of {_gui3} to stone button with name "&7Coming soon..."
+            set slot 31 of {_gui3} to stone button with name "&7Coming soon..."
+            set slot 32 of {_gui3} to stone button with name "&7Coming soon..."
+            set slot 33 of {_gui3} to stone button with name "&7Coming soon..."
+            set slot 5 of {_gui3} to glow berries with name "&d&lRANK UPGRADE" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase rank upgrades!" and "&r" and "&8• &fContains &d6 packages" and "&r" and "&d➥ &fClick To View" and hide enchantments
+            set slot 34 of {_gui3} to stone button with name "&7Coming soon..."
+            open {_gui3} to player
+
+
+
+
+
+
+#store 4 rank upgrade
+on inventory click:
+    if name of event-inventory is "&f&lShop Menu":
+        if event-slot is 5:
+            set {_gui4} to a new chest inventory with 6 row with name "&f&lShop Menu"
+            set slot 0 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 1 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 7 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 8 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 10 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 11 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 12 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 13 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 14 of {_gui4} to lime stained glass pane with name "&r"
+            set slot 15 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 16 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 45 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 46 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 47 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 48 of {_gui4} to gray stained glass pane with name "&r"
+            set slot 6 of {_gui4} to stone button with name "&7Coming soon..."
+            set slot (all integers between 50 and 53) of {_gui4} to gray stained glass pane with name "&r"
+            set slot 49 of {_gui4} to player's skull named "&f&lSTILL CONFUSED?" with lore "&8ɢᴜɪᴅᴇ" and "&r" and "&f➥ Click for a direct link to our store" and hide enchantments
+            set slot 5 of {_gui4} to glow berries with name "&d&lRANK UPGRADE" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase rank upgrades!" and "&r" and "&8• &fContains &d6 packages" and "&r" and "&d➥ &fClick To View" and hide enchantments
+            set slot 28 of {_gui4} to light blue concrete of unbreaking 10 with name "&f -> " with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $3.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+            set slot 29 of {_gui4} to orange glazed terracotta of unbreaking 10 with name "&f -> " with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $2.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+            set slot 30 of {_gui4} to magenta concrete of unbreaking 10 with name "&f -> " with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $2.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+            set slot 32 of {_gui4} to lime glazed terracotta of unbreaking 10 with name "&f -> " with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $3.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+            set slot 33 of {_gui4} to pink concrete of unbreaking 10 with name "&f -> " with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $5.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+            set slot 34 of {_gui4} to yellow glazed terracotta of unbreaking 10 with name "&f -> " with lore "&8ʀᴀɴᴋ" and "&r" and "&7Price:" and "&f➥ $3.99 USD" and "&r" and "&7Click to purchase this package" and hide enchantments
+            set slot 3 of {_gui4} to bone with name "&a&lSUBSCRIPTIONS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase monthly ranks!" and "&r" and "&8• &fContains &a2 packages" and "&r" and "&a➥ &fClick To View" and hide enchantments
+            set slot 2 of {_gui4} to paper with name "&6&lRANKS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase permanent ranks!" and "&r" and "&8• &fContains &67 packages" and "&r" and "&6➥ &fClick To View" and hide enchantments
+            set slot 4 of {_gui4} to netherite ingot with name "&4&lKEYS" with lore "&8ᴄᴀᴛᴇɢᴏʀʏ" and "&r" and "&7Purchase cool keys!" and "&r" and "&8• &fContains &45 packages" and "&r" and "&4➥ &fClick To View" and hide enchantments
+            open {_gui4} to player

@@ -1,0 +1,16 @@
+on region enter: 
+    if region is "void":
+        kill player
+        send "&c&lYou Died In Void!" to player
+        broadcast "&b&l%player's name% &bDied In Void"
+
+on death of player:
+    if region is "void1":
+        loop all items in the victim's inventory:
+            drop loop-item at location at 2, 134, 360 in world "world"
+        clear the victim's inventory
+
+on rightclick holding a firework rocket:
+    if player is in region "void":
+        cancel event
+        send "&cYou cannot use fireworks in this region!" to player
